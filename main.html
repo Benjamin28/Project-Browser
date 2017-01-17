@@ -3,13 +3,13 @@
 <html>
 
   <head>
-
+    <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
     <script src="components/aframe.min.js"></script>
     <script src="components/aframe-obj-loader-component.min.js"></script>
     <script src="components/aframe-text-component.js"></script>
-
-    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="https://raw.githubusercontent.com/ngokevin/kframe/master/components/layout/dist/aframe-layout-component.js"></script>
     <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
 
   </head>
 
@@ -17,9 +17,40 @@
 
     <a-scene>
 
+      <a-assets>
+	<img id="smile" crossorigin="anonymous" src="img/smile.jpg">
+	<img id="smile2" crossorigin="anonymous" src="img/smile2.jpg">
+	<script id="holo" type="text/html">
+	  <a-entity class="holo"
+
+		    geometry="primitive: plane; height: 3; width: 4"
+		    rotation="0 ${rot} 0"
+		    material="src: ${front};"
+		    event-set__1="_event: mouseup; material: src: ${src}; opacity: .4"
+		    set-image="on: click; target: #bg; src: ${src}">
+	  </a-entity>
+	</script>
+      </a-assets>
+
+      <a-sky id="bg" color="white"></a-sky>
       <a-ring color="blue" scale="3 3 3" rotation="-90 0 0"></a-ring>
       <a-ring color="blue" scale="3 3 3" rotation="90 0 0" position="0 3 0"></a-ring>
+      
+      <a-entity layout="type: circle; radius: 3.0; margin: 1" position="-0 .75 0">
+        <a-entity template="src: #holo" data-src="#smile2" data-front="#smile" data-rot="270"></a-entity>
+        <a-entity template="src: #holo" data-src="#smile2" data-front="#smile" data-rot="210"></a-entity>
+	<a-entity template="src: #holo" data-src="#smile2" data-front="#smile" data-rot="150"></a-entity>
+        <a-entity template="src: #holo" data-src="#smile2" data-front="#smile" data-rot="90"></a-entity>
+	<a-entity template="src: #holo" data-src="#smile2" data-front="#smile" data-rot="30"></a-entity>	
+        <a-entity template="src: #holo" data-src="#smile2" data-front="#smile" data-rot="-30"></a-entity>
+      </a-entity>
 
+
+
+      <a-camera rotation="0 30 0">
+	<a-cursor></a-cursor>
+      </a-camera>
+      
     </a-scene>
 
   </body>
